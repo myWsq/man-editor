@@ -1,0 +1,401 @@
+.typography {
+  --tg-body: #334155;
+  --tg-headings: #1e293b;
+  --tg-links: #111827;
+  --tg-bold: #111827;
+  --tg-counters: #ec4899;
+  --tg-bullets: #f9a8d4;
+  --tg-hr: #e5e7eb;
+  --tg-blockquote: #f3f4f6;
+  --tg-quotes: #111827;
+  --tg-quote-borders: #e5e7eb;
+  --tg-captions: #6b7280;
+  --tg-code: #ec4899;
+  --tg-pre-code: #e5e7eb;
+  --tg-pre-bg: #1f2937;
+  --tg-th-borders: #d1d5db;
+  --tg-td-borders: #e5e7eb;
+  --tg-invert-body: #d1d5db;
+  --tg-invert-headings: #fff;
+  --tg-invert-lead: #9ca3af;
+  --tg-invert-links: #fff;
+  --tg-invert-bold: #fff;
+  --tg-invert-counters: #9ca3af;
+  --tg-invert-bullets: #4b5563;
+  --tg-invert-hr: #374151;
+  --tg-invert-quotes: #f3f4f6;
+  --tg-invert-quote-borders: #374151;
+  --tg-invert-captions: #9ca3af;
+  --tg-invert-code: #ec4899;
+  --tg-invert-pre-code: #d1d5db;
+  --tg-invert-pre-bg: rgb(0 0 0 / 50%);
+  --tg-invert-th-borders: #4b5563;
+  --tg-invert-td-borders: #374151;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--tg-body);
+}
+
+.typography a {
+  color: var(--tg-links);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.typography strong {
+  color: var(--tg-bold);
+  font-weight: 600;
+}
+
+.typography ol {
+  list-style-type: decimal;
+  padding-left: 1.625em;
+}
+
+.typography ol[type="A"] {
+  list-style-type: upper-alpha;
+}
+
+.typography ol[type="a"] {
+  list-style-type: lower-alpha;
+}
+
+.typography ol[type="A" s] {
+  list-style-type: upper-alpha;
+}
+
+.typography ol[type="a" s] {
+  list-style-type: lower-alpha;
+}
+
+.typography ol[type="I"] {
+  list-style-type: upper-roman;
+}
+
+.typography ol[type="i"] {
+  list-style-type: lower-roman;
+}
+
+.typography ol[type="I" s] {
+  list-style-type: upper-roman;
+}
+
+.typography ol[type="i" s] {
+  list-style-type: lower-roman;
+}
+
+.typography ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.typography ul {
+  list-style-type: disc;
+  padding-left: 1.625em;
+}
+
+.typography ol > li::marker {
+  font-weight: 400;
+  color: var(--tg-counters);
+}
+
+.typography ul > li::marker {
+  color: var(--tg-bullets);
+}
+
+.typography hr {
+  border-color: var(--tg-hr);
+  border-top-width: 1px;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.typography blockquote {
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+}
+
+.typography blockquote[data-type="focus"] {
+  border-left-width: 0.25rem /* 4px */;
+  border-left-color: var(--tg-blockquote);
+  padding-left: 0.5em;
+}
+
+.typography blockquote[data-type="solid"] {
+  background-color: var(--tg-blockquote);
+  border-radius: 4px;
+  padding: 0.5em 1em;
+}
+
+.typography h1 {
+  color: var(--tg-headings);
+  font-weight: 600;
+  font-size: 2.25em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.1111111;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--tg-hr);
+}
+
+.typography h1 strong {
+  font-weight: 700;
+}
+
+.typography h2 {
+  color: var(--tg-headings);
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.3333333;
+}
+
+.typography h2 strong {
+  font-weight: 700;
+}
+
+.typography h3 {
+  color: var(--tg-headings);
+  font-weight: 500;
+  font-size: 1.25em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.6;
+}
+
+.typography h3 strong {
+  font-weight: 600;
+}
+
+.typography h4 {
+  color: var(--tg-headings);
+  font-weight: 500;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+.typography h4 strong {
+  font-weight: 600;
+}
+
+.typography figure > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.typography figcaption {
+  color: var(--tg-captions);
+  font-size: 0.875em;
+  line-height: 1.4285714;
+  margin-top: 0.8571429em;
+}
+
+.typography code {
+  color: var(--tg-code);
+  font-weight: 600;
+  font-size: 0.875em;
+}
+
+.typography code::before {
+  content: "`";
+}
+
+.typography code::after {
+  content: "`";
+}
+
+.typography a code {
+  color: var(--tg-links);
+}
+
+.typography pre {
+  color: var(--tg-pre-code);
+  background-color: var(--tg-pre-bg);
+  overflow-x: auto;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  margin-top: 1.7142857em;
+  margin-bottom: 1.7142857em;
+  border-radius: 0.375rem /* 6px */;
+  padding-top: 0.8571429em;
+  padding-right: 1.1428571em;
+  padding-bottom: 0.8571429em;
+  padding-left: 1.1428571em;
+}
+
+.typography pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.typography pre code::before {
+  content: none;
+}
+
+.typography pre code::after {
+  content: none;
+}
+
+.typography table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+}
+
+.typography thead {
+  border-bottom-width: 1px;
+  border-bottom-color: var(--tg-th-borders);
+}
+
+.typography thead th {
+  color: var(--tg-headings);
+  font-weight: 600;
+  vertical-align: bottom;
+  padding-right: 0.5714286em;
+  padding-bottom: 0.5714286em;
+  padding-left: 0.5714286em;
+}
+
+.typography tbody tr {
+  border-bottom-width: 1px;
+  border-bottom-color: var(--tg-td-borders);
+}
+
+.typography tbody tr:last-child {
+  border-bottom-width: 0;
+}
+
+.typography tbody td {
+  vertical-align: baseline;
+  padding-top: 0.5714286em;
+  padding-right: 0.5714286em;
+  padding-bottom: 0.5714286em;
+  padding-left: 0.5714286em;
+}
+
+.typography p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.typography img {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.typography video {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.typography figure {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.typography h2 code {
+  font-size: 0.875em;
+}
+
+.typography h3 code {
+  font-size: 0.9em;
+}
+
+.typography li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.typography ol > li {
+  padding-left: 0.375em;
+}
+
+.typography ul > li {
+  padding-left: 0.375em;
+}
+
+.typography li p {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+/* .typography > ul > li > *:first-child {
+  margin-top: 1.25em;
+}
+
+.typography > ul > li > *:last-child {
+  margin-bottom: 1.25em;
+}
+
+.typography > ol > li > *:first-child {
+  margin-top: 1.25em;
+}
+
+.typography > ol > li > *:last-child {
+  margin-bottom: 1.25em;
+} */
+
+.typography ul ul,
+ul ol,
+ol ul,
+ol ol {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.typography hr + * {
+  margin-top: 0;
+}
+
+.typography h1 + * {
+  margin-top: 0;
+}
+
+.typography h2 + * {
+  margin-top: 0;
+}
+
+.typography h3 + * {
+  margin-top: 0;
+}
+
+.typography h4 + * {
+  margin-top: 0;
+}
+
+.typography thead th:first-child {
+  padding-left: 0;
+}
+
+.typography thead th:last-child {
+  padding-right: 0;
+}
+
+.typography tbody td:first-child {
+  padding-left: 0;
+}
+
+.typography tbody td:last-child {
+  padding-right: 0;
+}
+
+.typography > *:first-child {
+  margin-top: 0;
+}
+
+.typography > *:last-child {
+  margin-bottom: 0;
+}
