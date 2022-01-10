@@ -140,15 +140,19 @@ watch(isFolderNameInputShow, (val) => {
       v-for="item in workspace.buildInFolders"
       :key="item.id"
       :active="item.id === workspace.currentFolderId"
-      class="font-medium"
       @click="workspace.currentFolderId = item.id"
     >
       <template #icon>
         <component :is="buildInFolderIconMap[item.id]"></component>
       </template>
-      {{ item.name }}
+      <div class="flex items-center justify-between flex-grow">
+        <span class="font-medium">{{ item.name }}</span>
+        <span class="text-xs text-neutral-400">{{
+          workspace.folderPosts[item.id].length
+        }}</span>
+      </div>
     </finder-menu-item>
-    <div class="flex items-center justify-between px-3 mt-5 mb-3">
+    <div class="flex items-center justify-between px-2 mt-5 mb-3">
       <span class="font-medium text-neutral-400">文件夹</span>
       <n-button
         tertiary
@@ -156,7 +160,7 @@ watch(isFolderNameInputShow, (val) => {
         #icon
         type="primary"
         size="tiny"
-        class="scale-90"
+        :class="['scale-90', workspace.isLoadingDocuments && 'invisible']"
         @click="() => showFolderNameInput()"
       >
         <n-icon>
@@ -187,8 +191,7 @@ watch(isFolderNameInputShow, (val) => {
         v-model:value="folderNameInput"
         size="small"
         :theme-overrides="{
-          fontSizeSmall: '12px',
-          paddingSmall: '0 1px',
+          paddingSmall: '0',
         }"
         @blur="submitFolderName"
         placeholder=""
@@ -196,102 +199,110 @@ watch(isFolderNameInputShow, (val) => {
     </finder-menu-item>
 
     <!-- 文件夹列表 -->
-    <finder-menu-item
-      v-for="item in workspace.documents.folders"
-      :key="item.id"
-      :active="workspace.currentFolderId === item.id"
-      @click="workspace.currentFolderId = item.id"
-      :class="[
-        'group',
-        isFolderNameInputShow &&
-          currentRenamedFolderId === item.id &&
-          'relative z-10',
-      ]"
-    >
-      <template #icon>
-        <folder-open-outline
-          v-if="workspace.currentFolderId === item.id"
-        ></folder-open-outline>
-        <folder-outline v-else></folder-outline>
-      </template>
+    <template v-if="!workspace.isLoadingDocuments">
+      <finder-menu-item
+        v-for="item in workspace.documents.folders"
+        :key="item.id"
+        :active="workspace.currentFolderId === item.id"
+        @click="workspace.currentFolderId = item.id"
+        :class="[
+          'group',
+          isFolderNameInputShow &&
+            currentRenamedFolderId === item.id &&
+            'relative z-10',
+        ]"
+      >
+        <template #icon>
+          <folder-open-outline
+            v-if="workspace.currentFolderId === item.id"
+          ></folder-open-outline>
+          <folder-outline v-else></folder-outline>
+        </template>
 
-      <!-- 重命名的输入框 -->
-      <n-input
-        ref="folderNameInputElement"
-        :input-props="{
-          id: RENAME_INPUT_ID,
-        }"
-        v-if="isFolderNameInputShow && currentRenamedFolderId === item.id"
-        v-model:value="folderNameInput"
-        size="small"
-        :theme-overrides="{
-          fontSizeSmall: '12px',
-          paddingSmall: '0 1px',
-        }"
-        @blur="submitFolderName"
-        placeholder=""
-      ></n-input>
+        <!-- 重命名的输入框 -->
+        <n-input
+          ref="folderNameInputElement"
+          :input-props="{
+            id: RENAME_INPUT_ID,
+          }"
+          v-if="isFolderNameInputShow && currentRenamedFolderId === item.id"
+          v-model:value="folderNameInput"
+          size="small"
+          :theme-overrides="{
+            paddingSmall: '0',
+          }"
+          @blur="submitFolderName"
+          placeholder=""
+        ></n-input>
 
-      <!-- 文件夹主要内容 -->
-      <div class="flex justify-between flex-grow min-w-0" v-else>
-        <n-ellipsis class="flex-grow">{{ item.name }}</n-ellipsis>
-        <!-- 操作图标 -->
-        <div class="flex flex-shrink-0">
-          <n-popselect
-            size="small"
-            :animated="false"
-            placement="bottom-start"
-            :flip="false"
-            trigger="click"
-            :options="[
-              {
-                label: '重命名',
-                value: 'rename',
-              },
-              {
-                label: '删除',
-                value: 'delete',
-              },
-            ]"
-            :show="currentCommandFolderId === item.id"
-            @update:show="
-              (val) => {
-                if (!val) {
-                  currentCommandFolderId = '';
-                }
-              }
-            "
-            @update:value="commandHandler"
-          >
-            <n-button
-              size="tiny"
-              :class="[
-                'scale-75',
+        <!-- 文件夹主要内容 -->
+        <div class="flex justify-between flex-grow min-w-0" v-else>
+          <n-ellipsis class="flex-grow">{{ item.name }}</n-ellipsis>
+          <!-- 操作图标 -->
+          <div class="flex items-center flex-shrink-0 space-x-1">
+            <n-popselect
+              size="small"
+              :animated="false"
+              placement="bottom-start"
+              :flip="false"
+              trigger="click"
+              :options="[
                 {
-                  // 菜单出现时不执行消失逻辑
-                  'hidden group-hover:flex': currentCommandFolderId !== item.id,
+                  label: '重命名',
+                  value: 'rename',
+                },
+                {
+                  label: '删除',
+                  value: 'delete',
                 },
               ]"
-              tertiary
-              #icon
-              circle
-              @click.stop="
-                () => {
-                  currentCommandFolderId = item.id;
+              :show="currentCommandFolderId === item.id"
+              @update:show="
+                (val) => {
+                  if (!val) {
+                    currentCommandFolderId = '';
+                  }
                 }
               "
+              @update:value="commandHandler"
             >
-              <n-icon>
-                <ellipsis-horizontal></ellipsis-horizontal>
-              </n-icon>
-            </n-button>
-          </n-popselect>
-          <!-- <n-icon>2</n-icon> -->
+              <n-button
+                size="tiny"
+                :class="[
+                  'scale-75',
+                  {
+                    // 菜单出现时不执行消失逻辑
+                    'invisible group-hover:visible':
+                      currentCommandFolderId !== item.id,
+                  },
+                ]"
+                tertiary
+                #icon
+                circle
+                @click.stop="
+                  () => {
+                    currentCommandFolderId = item.id;
+                  }
+                "
+              >
+                <n-icon>
+                  <ellipsis-horizontal></ellipsis-horizontal>
+                </n-icon>
+              </n-button>
+            </n-popselect>
+            <span class="text-xs text-neutral-400">{{
+              workspace.folderPosts[item.id].length
+            }}</span>
+          </div>
         </div>
-      </div>
-    </finder-menu-item>
+      </finder-menu-item>
+    </template>
     <span
-      v-if="!workspace.documents.folders.length && !isFolderNameInputShow"
+      v-if="
+        !workspace.documents.folders.length &&
+        !workspace.isLoadingDocuments &&
+        !isFolderNameInputShow
+      "
       class="px-3 text-neutral-400"
       >创建文件夹以组织文件</span
     >

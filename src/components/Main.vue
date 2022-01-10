@@ -2,8 +2,12 @@
 import MainEditor from "./MainEditor.vue";
 import Topbar from "./Topbar.vue";
 import Finder from "./Finder.vue";
-import Operation from "./Operation.vue";
 import { NScrollbar } from "naive-ui";
+import DocumentsLoading from "./DocumentsLoading.vue";
+import { useWorkspace } from "../stores/workspace";
+import PostList from "./PostList.vue";
+
+const workspace = useWorkspace();
 </script>
 
 <template>
@@ -18,9 +22,15 @@ import { NScrollbar } from "naive-ui";
         </NScrollbar>
       </aside>
       <main class="relative flex-grow min-w-0 min-h-0">
-        <NScrollbar x-scrollable>
-          <MainEditor></MainEditor>
+        <DocumentsLoading
+          v-if="workspace.isLoadingDocuments"
+        ></DocumentsLoading>
+        <NScrollbar v-else>
+          <PostList></PostList>
         </NScrollbar>
+        <!-- <NScrollbar x-scrollable>
+          <MainEditor></MainEditor>
+        </NScrollbar> -->
       </main>
     </div>
   </div>

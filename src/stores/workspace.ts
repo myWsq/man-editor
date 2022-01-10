@@ -49,7 +49,8 @@ export const useWorkspace = defineStore("workspace", {
   state: () => {
     return {
       currentWorkspaceId: "",
-      currentFolderId: "",
+      currentFolderId: "all",
+      currentPostId: "",
       workspaceList: [] as Workspace[],
       buildInFolders: [
         { id: "all", name: "全部文档" },
@@ -67,6 +68,38 @@ export const useWorkspace = defineStore("workspace", {
   getters: {
     currentWorkspaceConfig: (state) =>
       state.workspaceList.find((val) => val.id === state.currentWorkspaceId),
+
+    folderPosts: (state) => {
+      const { posts, folders } = state.documents;
+      let map: Record<string, PostNode[]> = {
+        all: posts.filter((item) => !item.isInTrash),
+        draft: posts.filter((item) => !item.isInTrash && item.isDraft),
+        notInbox: posts.filter(
+          (item) =>
+            !item.isInTrash &&
+            (!item.folderId ||
+              !state.documents.folders.find(
+                (folder) => folder.id === item.folderId
+              ))
+        ),
+        trash: posts.filter((item) => item.isInTrash),
+      };
+
+      for (const folder of folders) {
+        map[folder.id] = posts.filter(
+          (item) =>
+            !item.isInTrash &&
+            item.folderId &&
+            state.documents.folders.find((each) => each.id === folder.id)
+        );
+      }
+
+      return map;
+    },
+
+    currentPostList(): PostNode[] {
+      return this.folderPosts[this.currentFolderId];
+    },
 
     isImageStorageEnabled(): boolean {
       return !!this.currentWorkspaceConfig?.imageStorageConfig;
@@ -119,7 +152,7 @@ export const useWorkspace = defineStore("workspace", {
     },
 
     removeWorkspace(id: string) {
-      remove(this.workspaceList, (val) => val.id === id);
+      remove(this.workspaceList, (val) => val?.id === id);
       this.currentWorkspaceId = this.workspaceList[0].id;
     },
 
@@ -165,7 +198,7 @@ export const useWorkspace = defineStore("workspace", {
     },
 
     removeFolder(id: string) {
-      remove(this.documents.folders, (item) => item.id === id);
+      remove(this.documents.folders, (item) => item?.id === id);
       if (id === this.currentFolderId) {
         this.currentFolderId = "";
       }
@@ -230,10 +263,18 @@ export function registerWorkspace() {
   })();
 
   (async () => {
-    // 加载 documents 初始状态
-    if (workspace.currentWorkspaceConfig) {
-      await workspace.loadDocuments();
-    }
+    watch(
+      () => workspace.currentWorkspaceConfig,
+      (val) => {
+        if (val) {
+          workspace.loadDocuments();
+        }
+      },
+      {
+        deep: true,
+        immediate: true,
+      }
+    );
 
     // 监听 documents 状态变化存储至 storage
     watch(
