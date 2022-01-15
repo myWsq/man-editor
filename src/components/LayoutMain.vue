@@ -21,7 +21,7 @@ const workspace = useWorkspace();
       </aside>
       <main class="relative flex-grow min-w-0 min-h-0">
         <panel-documents-loading
-          v-if="!workspace.isLoadingDocuments"
+          v-if="workspace.isLoadingDocuments"
         ></panel-documents-loading>
         <n-scrollbar v-else>
           <layout-post-list></layout-post-list>
