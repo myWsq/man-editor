@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { useWorkspace, Workspace } from "../stores/workspace";
 import { reactive, ref } from "vue";
-import WorkspaceForm, { WorkspaceFormData } from "./WorkspaceForm.vue";
+import FormWorkspace, { WorkspaceFormData } from "./FormWorkspace.vue";
 import {
   NButton,
   NPopover,
@@ -174,9 +174,9 @@ async function onSubmit(data: WorkspaceFormData) {
     :width="280"
   >
     <template #trigger>
-      <NButton v-bind="$attrs" strong quaternary>{{
+      <n-button v-bind="$attrs" strong quaternary>{{
         workspace.currentWorkspaceConfig.name
-      }}</NButton>
+      }}</n-button>
     </template>
     <template #header>
       <div
@@ -259,11 +259,11 @@ async function onSubmit(data: WorkspaceFormData) {
     :mask-closable="false"
     :closable="false"
   >
-    <WorkspaceForm
+    <form-workspace
       :data="editingWorkspace"
       @cancel="isShowFormModal = false"
       @submit="onSubmit"
       :disabled="isTesting"
-    ></WorkspaceForm>
+    ></form-workspace>
   </n-modal>
 </template>

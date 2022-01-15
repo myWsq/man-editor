@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { NForm, NFormItem, NInput, NSwitch, NButton, NSpace } from "naive-ui";
 import { ref } from "vue";
 import { Workspace } from "../stores/workspace";
 import { cloneDeep, uuid } from "licia-es";
-import StorageFormItem from "./StorageFormItem.vue";
+import FormItemStorage from "./FormItemStorage.vue";
 
 export interface WorkspaceFormData extends Omit<Workspace, "id"> {}
 
@@ -36,11 +35,11 @@ const model = ref<WorkspaceFormData>(
     <n-form-item label="空间名" path="name">
       <n-input v-model:value="model.name" placeholder="输入空间名" />
     </n-form-item>
-    <storage-form-item
+    <form-item-storage
       :types="['indexedDB', 's3']"
       :model-value="model.metaStorageConfig"
       path="metaStorageConfig"
-    ></storage-form-item>
+    ></form-item-storage>
     <div class="my-5 text-xs font-medium text-neutral-400">
       图床设置（对象存储需开启公有读)
     </div>

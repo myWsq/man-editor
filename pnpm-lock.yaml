@@ -23,13 +23,14 @@ specifiers:
   axios: ^0.24.0
   licia-es: ^1.33.0
   localforage: ^1.10.0
-  naive-ui: ^2.23.2
+  naive-ui: ^2.24.1
   pinia: ^2.0.9
   postcss: ^8.4.5
   postcss-import: ^14.0.2
   rollup-plugin-visualizer: ^5.5.2
   tailwindcss: ^3.0.8
   typescript: ^4.4.4
+  unplugin-vue-components: ^0.17.11
   vite: ^2.7.2
   vue: ^3.2.25
   vue-tsc: ^0.29.8
@@ -54,7 +55,7 @@ dependencies:
   axios: 0.24.0
   licia-es: 1.33.0
   localforage: 1.10.0
-  naive-ui: 2.23.2_vue@3.2.26
+  naive-ui: 2.24.1_vue@3.2.26
   pinia: 2.0.9_typescript@4.5.4+vue@3.2.26
   vue: 3.2.26
 
@@ -67,10 +68,17 @@ devDependencies:
   rollup-plugin-visualizer: 5.5.2
   tailwindcss: 3.0.12_ef48b3b8837f8a23677bffe8f9cd866d
   typescript: 4.5.4
+  unplugin-vue-components: 0.17.11_vite@2.7.10+vue@3.2.26
   vite: 2.7.10
   vue-tsc: 0.29.8_typescript@4.5.4
 
 packages:
+
+  /@antfu/utils/0.3.0:
+    resolution: {integrity: sha1-YwbEO1Kog72Olz4+2N1kJIQYvMQ=, tarball: '@antfu/utils/download/@antfu/utils-0.3.0.tgz'}
+    dependencies:
+      '@types/throttle-debounce': 2.1.0
+    dev: true
 
   /@babel/code-frame/7.16.7:
     resolution: {integrity: sha512-iAXqUn8IIeBTNd72xsFlgaXHkMBMt6y4HJp1tIaK465CWLT/fG1aqB7ykr95gHHmlBdGbFeWWfyB4NJJ0nmeIg==, tarball: '@babel/code-frame/download/@babel/code-frame-7.16.7.tgz'}
@@ -821,6 +829,10 @@ packages:
       '@types/prosemirror-transform': 1.1.5
     dev: false
 
+  /@types/throttle-debounce/2.1.0:
+    resolution: {integrity: sha1-HD32JL/Eti+ZLTASuExW1B6rN3Y=, tarball: '@types/throttle-debounce/download/@types/throttle-debounce-2.1.0.tgz'}
+    dev: true
+
   /@vicons/ionicons5/0.11.0:
     resolution: {integrity: sha1-VBhb+lcqCd9wCU2xlU8ov78TY+0=, tarball: '@vicons/ionicons5/download/@vicons/ionicons5-0.11.0.tgz'}
     dev: false
@@ -1156,6 +1168,10 @@ packages:
       '@babel/types': 7.16.7
     dev: true
 
+  /balanced-match/1.0.2:
+    resolution: {integrity: sha1-6D46fj8wCzTLnYf2FfoMvzV2kO4=, tarball: balanced-match/download/balanced-match-1.0.2.tgz}
+    dev: true
+
   /base64-js/1.5.1:
     resolution: {integrity: sha1-GxtEAWClv3rUC2UPCVljSBkDkwo=, tarball: base64-js/download/base64-js-1.5.1.tgz}
     dev: false
@@ -1163,6 +1179,13 @@ packages:
   /binary-extensions/2.2.0:
     resolution: {integrity: sha1-dfUC7q+f/eQvyYgpZFvk6na9ni0=, tarball: binary-extensions/download/binary-extensions-2.2.0.tgz}
     engines: {node: '>=8'}
+    dev: true
+
+  /brace-expansion/1.1.11:
+    resolution: {integrity: sha1-PH/L9SnYcibz0vUrlm/1Jx60Qd0=, tarball: brace-expansion/download/brace-expansion-1.1.11.tgz}
+    dependencies:
+      balanced-match: 1.0.2
+      concat-map: 0.0.1
     dev: true
 
   /braces/3.0.2:
@@ -1281,6 +1304,10 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha1-wqCah6y95pVD3m9j+jmVyCbFNqI=, tarball: color-name/download/color-name-1.1.4.tgz}
+
+  /concat-map/0.0.1:
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=, tarball: concat-map/download/concat-map-0.0.1.tgz}
+    dev: true
 
   /constantinople/4.0.1:
     resolution: {integrity: sha1-De8RP6Dk3I3oMzGlz3nIsyUhMVE=, tarball: constantinople/download/constantinople-4.0.1.tgz}
@@ -1932,6 +1959,11 @@ packages:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==, tarball: lines-and-columns/download/lines-and-columns-1.2.4.tgz}
     dev: true
 
+  /local-pkg/0.4.1:
+    resolution: {integrity: sha512-lL87ytIGP2FU5PWwNDo0w3WhIo2gopIAxPg9RxDYF7m4rr5ahuZxP22xnJHIvaLTe4Z9P6uKKY2UHiwyB4pcrw==, tarball: local-pkg/download/local-pkg-0.4.1.tgz}
+    engines: {node: '>=14'}
+    dev: true
+
   /localforage/1.10.0:
     resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==, tarball: localforage/download/localforage-1.10.0.tgz}
     dependencies:
@@ -1957,7 +1989,6 @@ packages:
     resolution: {integrity: sha1-P0l9b9NMZpxnmNy4IfLvMfVEUFE=, tarball: magic-string/download/magic-string-0.25.7.tgz}
     dependencies:
       sourcemap-codec: 1.4.8
-    dev: false
 
   /merge2/1.4.1:
     resolution: {integrity: sha1-Q2iJL4hekHRVpv19xVwMnUBJkK4=, tarball: merge2/download/merge2-1.4.1.tgz}
@@ -1972,6 +2003,12 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /minimatch/3.0.4:
+    resolution: {integrity: sha1-UWbihkV/AzBgZL5Ul+jbsMPTIIM=, tarball: minimatch/download/minimatch-3.0.4.tgz}
+    dependencies:
+      brace-expansion: 1.1.11
+    dev: true
+
   /minimist/1.2.5:
     resolution: {integrity: sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=, tarball: minimist/download/minimist-1.2.5.tgz}
     dev: true
@@ -1980,8 +2017,8 @@ packages:
     resolution: {integrity: sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=, tarball: ms/download/ms-2.1.2.tgz}
     dev: true
 
-  /naive-ui/2.23.2_vue@3.2.26:
-    resolution: {integrity: sha512-x5XtoJrfMcBGqkryJ6RPg3hB7xDqbO+5TfDB1UGIaVsj2fsidn9S9a6yK/jXqKbw+h5h97NqOu+Lf5EH8tAIog==, tarball: naive-ui/download/naive-ui-2.23.2.tgz}
+  /naive-ui/2.24.1_vue@3.2.26:
+    resolution: {integrity: sha512-nwU4L7P5rIutkRjoBB3wvtn19GYBI/vbz+DeyhbkG9MB4VZe2xZLA5fgq0dD4MsY2KYYcffKz4wDcQOJBy5zGg==, tarball: naive-ui/download/naive-ui-2.24.1.tgz}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
@@ -2000,10 +2037,10 @@ packages:
       seemly: 0.3.3
       treemate: 0.3.10
       vdirs: 0.1.7_vue@3.2.26
-      vfonts: 0.1.0
+      vfonts: 0.0.3
       vooks: 0.2.12_vue@3.2.26
       vue: 3.2.26
-      vueuc: 0.4.19_7fea039e05dc0d0bb67319189a00d1ad
+      vueuc: 0.4.22_7fea039e05dc0d0bb67319189a00d1ad
     dev: false
 
   /nanoid/3.1.30:
@@ -2505,7 +2542,6 @@ packages:
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha1-6oBL2UhXQC5pktBaOO8a41qatMQ=, tarball: sourcemap-codec/download/sourcemap-codec-1.4.8.tgz}
-    dev: false
 
   /string-width/4.2.3:
     resolution: {integrity: sha1-JpxxF9J7Ba0uU2gwqOyJXvnG0BA=, tarball: string-width/download/string-width-4.2.3.tgz}
@@ -2611,6 +2647,55 @@ packages:
     hasBin: true
     dev: true
 
+  /unplugin-vue-components/0.17.11_vite@2.7.10+vue@3.2.26:
+    resolution: {integrity: sha512-u5MQ0TbikszRelCt6EA/HskGtGkGLDxi7tQ4/4tcEPWkH3yXSZRJCOeLF5MSdxN1SiGjaJ0I9zeHjoZFC3FvRw==, tarball: unplugin-vue-components/download/unplugin-vue-components-0.17.11.tgz}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@babel/parser': ^7.15.8
+      '@babel/traverse': ^7.15.4
+      vue: 2 || 3
+    peerDependenciesMeta:
+      '@babel/parser':
+        optional: true
+      '@babel/traverse':
+        optional: true
+    dependencies:
+      '@antfu/utils': 0.3.0
+      '@rollup/pluginutils': 4.1.2
+      chokidar: 3.5.2
+      debug: 4.3.3
+      fast-glob: 3.2.9
+      local-pkg: 0.4.1
+      magic-string: 0.25.7
+      minimatch: 3.0.4
+      resolve: 1.21.0
+      unplugin: 0.2.21_vite@2.7.10
+      vue: 3.2.26
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vite
+      - webpack
+    dev: true
+
+  /unplugin/0.2.21_vite@2.7.10:
+    resolution: {integrity: sha512-IJ15/L5XbhnV7J09Zjk0FT5HEkBjkXucWAXQWRsmEtUxmmxwh23yavrmDbCF6ZPxWiVB28+wnKIHePTRRpQPbQ==, tarball: unplugin/download/unplugin-0.2.21.tgz}
+    peerDependencies:
+      rollup: ^2.50.0
+      vite: ^2.3.0
+      webpack: 4 || 5
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+      vite:
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      vite: 2.7.10
+      webpack-virtual-modules: 0.4.3
+    dev: true
+
   /upath/2.0.1:
     resolution: {integrity: sha1-UMc96mjW9rmQ9R0nnOYIFmXWGos=, tarball: upath/download/upath-2.0.1.tgz}
     engines: {node: '>=4'}
@@ -2642,8 +2727,8 @@ packages:
       vue: 3.2.26
     dev: false
 
-  /vfonts/0.1.0:
-    resolution: {integrity: sha1-wWrzfKBEsnJa5VVTBJKA775iIqk=, tarball: vfonts/download/vfonts-0.1.0.tgz}
+  /vfonts/0.0.3:
+    resolution: {integrity: sha512-nguyw8L6Un8eelg1vQ31vIU2ESxqid7EYmy8V+MDeMaHBqaRSkg3dTBToC1PR00D89UzS/SLkfYPnx0Wf23IQQ==, tarball: vfonts/download/vfonts-0.0.3.tgz}
     dev: false
 
   /vite/2.7.10:
@@ -2836,8 +2921,8 @@ packages:
       '@vue/shared': 3.2.26
     dev: false
 
-  /vueuc/0.4.19_7fea039e05dc0d0bb67319189a00d1ad:
-    resolution: {integrity: sha512-mzhYwv60cldElLolvG5sMsDFNMP1+vQbxPnbWzT2BdIG6XfF0hzCxq0KMoYpg4cAekKijty2txRgNkySIjTWLA==, tarball: vueuc/download/vueuc-0.4.19.tgz}
+  /vueuc/0.4.22_7fea039e05dc0d0bb67319189a00d1ad:
+    resolution: {integrity: sha512-NqyBnS46+Fiuk9nEVqNocchRZ4PjVIzREA7lFOn/RrzpAjaX/3Srlee8BmIkNGhVcvrd7oCOgOl/vv12ls1C+Q==, tarball: vueuc/download/vueuc-0.4.22.tgz}
     peerDependencies:
       '@css-render/vue3-ssr': ^0.15.7
       vue: ^3.0.11
@@ -2855,6 +2940,10 @@ packages:
   /w3c-keyname/2.2.4:
     resolution: {integrity: sha1-St5pFvYpAiTNvR24rEnqsD0O72s=, tarball: w3c-keyname/download/w3c-keyname-2.2.4.tgz}
     dev: false
+
+  /webpack-virtual-modules/0.4.3:
+    resolution: {integrity: sha1-zVl8bVHVpey0c+6hmDpY+ooX3tk=, tarball: webpack-virtual-modules/download/webpack-virtual-modules-0.4.3.tgz?cache=0&sync_timestamp=1634048784241&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fwebpack-virtual-modules%2Fdownload%2Fwebpack-virtual-modules-0.4.3.tgz}
+    dev: true
 
   /with/7.0.2:
     resolution: {integrity: sha1-zO461ULSVTinp6gKrSErmChJW6w=, tarball: with/download/with-7.0.2.tgz}

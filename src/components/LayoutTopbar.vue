@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Workspace from "./Workspace.vue";
+import DropdownWorkspace from "./DropdownWorkspace.vue";
 </script>
 <template>
   <div class="flex h-14">
@@ -11,7 +11,7 @@ import Workspace from "./Workspace.vue";
     </div>
     <div class="flex flex-grow h-full pr-8 border-b">
       <div class="ml-auto nav-item">
-        <Workspace></Workspace>
+        <dropdown-workspace></dropdown-workspace>
       </div>
     </div>
   </div>

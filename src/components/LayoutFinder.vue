@@ -1,12 +1,5 @@
 <script lang="tsx" setup>
-import {
-  NIcon,
-  NButton,
-  NInput,
-  NPopselect,
-  NEllipsis,
-  useDialog,
-} from "naive-ui";
+import { useDialog } from "naive-ui";
 import {
   Library,
   FileTray,
@@ -18,9 +11,9 @@ import {
   EllipsisHorizontal,
 } from "@vicons/ionicons5";
 import { nextTick, ref, watch } from "vue";
-import FinderMenuItem from "./FinderMenuItem.vue";
 import { useWorkspace } from "../stores/workspace";
 import { guard } from "../utils/guard";
+import MenuItemFinder from "./MenuItemFinder.vue";
 
 const dialog = useDialog();
 const workspace = useWorkspace();
@@ -136,7 +129,7 @@ watch(isFolderNameInputShow, (val) => {
 <template>
   <div class="flex flex-col px-2 py-5">
     <span class="px-3 mb-3 font-medium text-neutral-400">分类</span>
-    <finder-menu-item
+    <menu-item-finder
       v-for="item in workspace.buildInFolders"
       :key="item.id"
       :active="item.id === workspace.currentFolderId"
@@ -151,7 +144,7 @@ watch(isFolderNameInputShow, (val) => {
           workspace.folderPosts[item.id].length
         }}</span>
       </div>
-    </finder-menu-item>
+    </menu-item-finder>
     <div class="flex items-center justify-between px-2 mt-5 mb-3">
       <span class="font-medium text-neutral-400">文件夹</span>
       <n-button
@@ -175,7 +168,7 @@ watch(isFolderNameInputShow, (val) => {
     ></div>
 
     <!-- 虚拟的新增文件夹 -->
-    <finder-menu-item
+    <menu-item-finder
       class="relative z-10"
       v-if="isFolderNameInputShow && !currentRenamedFolderId"
       :active="false"
@@ -196,11 +189,11 @@ watch(isFolderNameInputShow, (val) => {
         @blur="submitFolderName"
         placeholder=""
       ></n-input>
-    </finder-menu-item>
+    </menu-item-finder>
 
     <!-- 文件夹列表 -->
     <template v-if="!workspace.isLoadingDocuments">
-      <finder-menu-item
+      <menu-item-finder
         v-for="item in workspace.documents.folders"
         :key="item.id"
         :active="workspace.currentFolderId === item.id"
@@ -295,7 +288,7 @@ watch(isFolderNameInputShow, (val) => {
             }}</span>
           </div>
         </div>
-      </finder-menu-item>
+      </menu-item-finder>
     </template>
     <span
       v-if="

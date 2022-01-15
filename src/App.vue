@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import Main from "./components/Main.vue";
-import {
-  NConfigProvider,
-  GlobalThemeOverrides,
-  NMessageProvider,
-  NNotificationProvider,
-  NGlobalStyle,
-  NDialogProvider,
-} from "naive-ui";
+import LayoutMain from "./components/LayoutMain.vue";
+import { GlobalThemeOverrides } from "naive-ui";
 
 const theme: GlobalThemeOverrides = {
   common: {
@@ -28,7 +21,7 @@ const theme: GlobalThemeOverrides = {
     <n-message-provider>
       <n-dialog-provider>
         <n-notification-provider>
-          <Main></Main>
+          <layout-main></layout-main>
         </n-notification-provider>
       </n-dialog-provider>
     </n-message-provider>

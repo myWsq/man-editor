@@ -39,11 +39,12 @@ onUnmounted(() => {
 
 <template>
   <div class="editor-container">
-    <EditorComponent
+    <component
       v-if="EditorComponent"
+      :is="EditorComponent"
       class="editor-component"
       :editor="editorInstance"
-    ></EditorComponent>
+    ></component>
   </div>
 </template>
 

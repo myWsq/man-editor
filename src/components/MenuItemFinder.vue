@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { NIcon } from "naive-ui";
-
 const props = defineProps({
   active: {
     type: Boolean,

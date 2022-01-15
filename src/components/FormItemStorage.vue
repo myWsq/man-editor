@@ -1,11 +1,4 @@
 <script lang="ts" setup>
-import {
-  NFormItem,
-  NSelect,
-  NInput,
-  NInputGroup,
-  NInputGroupLabel,
-} from "naive-ui";
 import { useVModel } from "@vueuse/core";
 import {
   MetaStorageConfigIndexedDB,
