@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { Workspace } from "../stores/workspace";
-import { cloneDeep, uuid } from "licia-es";
+import { cloneDeep } from "lodash-es";
+import { nanoid } from "nanoid";
 import FormItemStorage from "./FormItemStorage.vue";
 
 export interface WorkspaceFormData extends Omit<Workspace, "id"> {}
@@ -18,7 +19,7 @@ const model = ref<WorkspaceFormData>(
     name: "",
     metaStorageConfig: {
       type: "indexedDB",
-      dbName: uuid(),
+      dbName: nanoid(),
     },
   }
 );
@@ -68,11 +69,11 @@ const model = ref<WorkspaceFormData>(
           placeholder="图片基础链接"
         />
       </n-form-item>
-      <storage-form-item
+      <form-item-storage
         :types="['s3']"
         :model-value="model.imageStorageConfig"
         path="imageStorageConfig"
-      ></storage-form-item>
+      ></form-item-storage>
     </template>
     <n-space justify="end">
       <n-button :disabled="props.disabled" @click="emit('cancel')"

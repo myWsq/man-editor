@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { uuid, remove, pick } from "licia-es";
+import { remove, pick } from "lodash-es";
+import { nanoid } from "nanoid";
 import { StorageAdapter } from "../lib/storage-adapter";
 import { StorageAdapterS3Options } from "../lib/storage-adapters/s3";
 import { StorageAdapterIndexedDbOptions } from "../lib/storage-adapters/indexed-db";
@@ -71,33 +72,42 @@ export const useWorkspace = defineStore("workspace", {
 
     folderPosts: (state) => {
       const { posts, folders } = state.documents;
-      let map: Record<string, PostNode[]> = {
-        all: posts.filter((item) => !item.isInTrash),
-        draft: posts.filter((item) => !item.isInTrash && item.isDraft),
-        notInbox: posts.filter(
-          (item) =>
-            !item.isInTrash &&
-            (!item.folderId ||
-              !state.documents.folders.find(
-                (folder) => folder.id === item.folderId
-              ))
-        ),
-        trash: posts.filter((item) => item.isInTrash),
-      };
 
-      for (const folder of folders) {
-        map[folder.id] = posts.filter(
-          (item) =>
-            !item.isInTrash &&
-            item.folderId &&
-            state.documents.folders.find((each) => each.id === folder.id)
-        );
+      const map: Record<string, PostNode[]> = {};
+
+      for (const item of folders.concat(state.buildInFolders)) {
+        map[item.id] = [];
+      }
+
+      for (const post of posts) {
+        if (post.isInTrash) {
+          map["trash"].push(post);
+          continue;
+        }
+
+        map["all"].push(post);
+
+        if (post.isDraft) {
+          map["draft"].push(post);
+        }
+
+        if (!post.folderId) {
+          map["notInbox"].push(post);
+        } else {
+          map[post.folderId].push(post);
+        }
       }
 
       return map;
     },
 
-    currentPostList(): PostNode[] {
+    isCurrentFolderBuildIn: (state) => {
+      return !!state.buildInFolders.find(
+        (item) => item.id === state.currentFolderId
+      );
+    },
+
+    currentPostList(): PostNode[] | undefined {
       return this.folderPosts[this.currentFolderId];
     },
 
@@ -108,6 +118,7 @@ export const useWorkspace = defineStore("workspace", {
   actions: {
     loadWorkspace() {
       const data = localStorage.getItem(STORAGE_KEY.workspaceConfig);
+
       if (data) {
         this.$patch(JSON.parse(data));
       }
@@ -118,7 +129,7 @@ export const useWorkspace = defineStore("workspace", {
           name: "默认空间",
           metaStorageConfig: {
             type: "indexedDB",
-            dbName: uuid(),
+            dbName: nanoid(),
           },
         });
         this.currentWorkspaceId = item.id;
@@ -131,7 +142,7 @@ export const useWorkspace = defineStore("workspace", {
     },
 
     createWorkspace(options: Omit<Workspace, "id">) {
-      const id = uuid();
+      const id = nanoid();
       const item: Workspace = {
         id,
         ...options,
@@ -190,7 +201,7 @@ export const useWorkspace = defineStore("workspace", {
 
     createFolder(name: string) {
       const folder = {
-        id: uuid(),
+        id: nanoid(),
         name,
       };
       this.documents.folders.unshift(folder);
@@ -208,6 +219,22 @@ export const useWorkspace = defineStore("workspace", {
       const current = this.documents.folders.find((item) => item.id === id);
       guard(current);
       current.name = newName;
+    },
+
+    createPost() {
+      const post: PostNode = {
+        id: nanoid(),
+        title: "",
+        isDraft: true,
+        isInTrash: false,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        folderId: this.isCurrentFolderBuildIn
+          ? undefined
+          : this.currentFolderId,
+      };
+      this.documents.posts.push(post);
+      return post;
     },
 
     async loadDocuments() {

@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
 import testImageUrl from "../assets/logo.png";
-import { uuid } from "licia-es";
+import { nanoid } from "nanoid";
 import axios from "axios";
 
 import { useWorkspace, Workspace } from "../stores/workspace";
@@ -126,7 +126,7 @@ async function onSubmit(data: WorkspaceFormData) {
         responseType: "blob",
       });
       const ext = testImageUrl.split(".").pop();
-      const key = uuid() + "." + (ext || "");
+      const key = nanoid() + "." + (ext || "");
       await imageStorage.setItem(key, blob);
       const url = data.imageStorageConfig.baseUrl + "/" + key;
       await axios.get(url).catch((err) => {
